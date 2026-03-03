@@ -1,0 +1,104 @@
+{
+  "gastos": [
+    { "id": "gasto_1", "descricao": "Academia", "valor": 158.22, "tipo": "fixo" },
+    { "id": "gasto_2", "descricao": "Corte de cabelo", "valor": 110, "tipo": "fixo" },
+    { "id": "gasto_3", "descricao": "Spotify", "valor": 31.90, "tipo": "fixo" },
+    { "id": "gasto_4", "descricao": "Google Gemini", "valor": 49.99, "tipo": "fixo" },
+    { "id": "gasto_5", "descricao": "Luz e Água", "valor": 80, "valorMax": 120, "tipo": "variavel" },
+    { "id": "gasto_6", "descricao": "IPVA (anual)", "valor": 68.44, "tipo": "fixo" }
+  ],
+  "cartoes": [
+    {
+      "id": "cartao_1",
+      "nome": "Banco Inter",
+      "limite": 0,
+      "saldo": 10176.55,
+      "parcelas": 12
+    },
+    {
+      "id": "cartao_2",
+      "nome": "Mercado Pago",
+      "limite": 0,
+      "saldo": 2200,
+      "parcelas": 12
+    }
+  ],
+  "financiamento": {
+    "parcela": 748.49,
+    "saldo": 78288.15,
+    "prazo": 150,
+    "juros": 5.6407,
+    "fgts": 22907.16,
+    "fgtsUltimo": ""
+  },
+  "investimentos": [
+    {
+      "id": "inv_1",
+      "nome": "Banco Inter",
+      "tipo": "reserva_emergencia",
+      "quantidade": 0,
+      "precoMedio": 0,
+      "valorAtual": 4500,
+      "aporteMensal": 0
+    },
+    {
+      "id": "inv_2",
+      "nome": "Previdência Icatu VGBL",
+      "tipo": "previdencia",
+      "quantidade": 0,
+      "precoMedio": 0,
+      "valorAtual": 5000.74,
+      "aporteMensal": 114.63
+    },
+    {
+      "id": "inv_3",
+      "nome": "CDB liquidez diária",
+      "tipo": "renda_fixa",
+      "quantidade": 0,
+      "precoMedio": 0,
+      "valorAtual": 5497.56,
+      "aporteMensal": 0
+    },
+    {
+      "id": "inv_4",
+      "nome": "CDB porquinho",
+      "tipo": "cofrinhos",
+      "quantidade": 0,
+      "precoMedio": 0,
+      "valorAtual": 16.55,
+      "aporteMensal": 0
+    },
+    {
+      "id": "inv_5",
+      "nome": "CDB porquinho dia a dia",
+      "tipo": "cofrinhos",
+      "quantidade": 0,
+      "precoMedio": 0,
+      "valorAtual": 2.60,
+      "aporteMensal": 0
+    },
+    {
+      "id": "inv_6",
+      "nome": "Cofrinho Mercado Pago",
+      "tipo": "cofrinhos",
+      "quantidade": 0,
+      "precoMedio": 0,
+      "valorAtual": 2001,
+      "aporteMensal": 0
+    }
+  ],
+  "metas": {
+    "aporte": 500,
+    "taxa": 10,
+    "alocacao": {
+      "reserva_emergencia": 10,
+      "renda_fixa": 30,
+      "previdencia": 15,
+      "fiis": 15,
+      "acoes_etfs": 25,
+      "cofrinhos": 5
+    }
+  },
+  "gastosMensais": {},
+  "aportesMensais": {}
+}

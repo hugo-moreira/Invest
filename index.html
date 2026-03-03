@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Finanças 2026</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>Painel Finanças 2026</h1>
+        <nav class="nav">
+            <button class="nav-btn active" data-section="resumo">Resumo</button>
+            <button class="nav-btn" data-section="gastos">Gastos</button>
+            <button class="nav-btn" data-section="cartao">Cartão</button>
+            <button class="nav-btn" data-section="financiamento">Financiamento</button>
+            <button class="nav-btn" data-section="investimentos">Investimentos</button>
+            <button class="nav-btn" data-section="graficos">Gráficos</button>
+            <button class="nav-btn" data-section="metas">Metas e Projeções</button>
+            <button class="nav-btn" data-section="config">Configurações</button>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section id="resumo" class="section active">
+            <h2>Resumo</h2>
+            <div class="resumo-grid">
+                <div class="card">
+                    <h3>Total de Gastos Mensais</h3>
+                    <p id="resumo-gastos" class="valor">R$ 0,00</p>
+                </div>
+                <div class="card">
+                    <h3>Patrimônio Total</h3>
+                    <p id="resumo-patrimonio" class="valor">R$ 0,00</p>
+                </div>
+                <div class="card">
+                    <h3>Meta de Aporte Mensal</h3>
+                    <p id="resumo-meta" class="valor">R$ 0,00</p>
+                </div>
+                <div class="card">
+                    <h3>Saldo Cartão</h3>
+                    <p id="resumo-cartao" class="valor">R$ 0,00</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gastos" class="section">
+            <h2>Gastos Fixos e Variáveis</h2>
+            <form id="form-gasto" class="form">
+                <div class="form-row">
+                    <input type="text" id="gasto-descricao" placeholder="Descrição" required>
+                    <input type="number" id="gasto-valor" placeholder="Valor (R$)" step="0.01" min="0" required>
+                    <select id="gasto-tipo">
+                        <option value="fixo">Fixo</option>
+                        <option value="variavel">Variável</option>
+                    </select>
+                    <input type="number" id="gasto-valor-max" placeholder="Valor máx (opcional)" step="0.01" min="0" style="display:none">
+                    <button type="submit">Adicionar</button>
+                </div>
+            </form>
+            <div id="lista-gastos" class="lista"></div>
+        </section>
+
+        <section id="cartao" class="section">
+            <h2>Cartão de Crédito</h2>
+            <form id="form-cartao" class="form">
+                <div class="form-row">
+                    <input type="text" id="cartao-nome" placeholder="Nome (ex: Banco Inter)" required>
+                    <input type="number" id="cartao-limite" placeholder="Limite (R$)" step="0.01" min="0">
+                    <input type="number" id="cartao-saldo" placeholder="Saldo devedor (R$)" step="0.01" min="0" required>
+                    <input type="number" id="cartao-parcelas" placeholder="Parcelas restantes" min="1" value="12">
+                    <button type="submit">Salvar</button>
+                </div>
+            </form>
+            <div id="lista-cartoes" class="lista"></div>
+        </section>
+
+        <section id="financiamento" class="section">
+            <h2>Financiamento Imobiliário</h2>
+            <form id="form-financiamento" class="form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Parcela mensal (R$)</label>
+                        <input type="number" id="fin-parcela" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Saldo devedor (R$)</label>
+                        <input type="number" id="fin-saldo" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Prazo restante (meses)</label>
+                        <input type="number" id="fin-prazo" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Juros efetivos (% a.a.)</label>
+                        <input type="number" id="fin-juros" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>FGTS disponível (R$)</label>
+                        <input type="number" id="fin-fgts" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Último uso FGTS (mês/ano)</label>
+                        <input type="text" id="fin-fgts-ultimo" placeholder="MM/AAAA">
+                    </div>
+                </div>
+                <button type="submit">Salvar</button>
+            </form>
+            <div class="simulador">
+                <h3>Simulador de Quitação</h3>
+                <div class="form-row">
+                    <input type="number" id="sim-amortizacao" placeholder="Amortização extra mensal (R$)" step="0.01" min="0">
+                    <input type="number" id="sim-decimo-terceiro" placeholder="13º (R$)" step="0.01" min="0">
+                    <input type="checkbox" id="sim-usar-fgts"> <label for="sim-usar-fgts">Usar FGTS</label>
+                    <button type="button" id="btn-simular">Simular</button>
+                </div>
+                <div id="resultado-simulador" class="resultado"></div>
+                <canvas id="chart-financiamento" height="200"></canvas>
+            </div>
+        </section>
+
+        <section id="investimentos" class="section">
+            <h2>Investimentos</h2>
+            <form id="form-investimento" class="form">
+                <div class="form-row">
+                    <input type="text" id="inv-nome" placeholder="Nome do ativo" required>
+                    <select id="inv-tipo">
+                        <option value="reserva_emergencia">Reserva de emergência</option>
+                        <option value="renda_fixa">Renda fixa</option>
+                        <option value="acoes">Ações (B3)</option>
+                        <option value="acoes_internacionais">Ações internacionais</option>
+                        <option value="fiis">FIIs</option>
+                        <option value="etfs">ETFs</option>
+                        <option value="previdencia">Previdência</option>
+                        <option value="fundos">Fundos de investimento</option>
+                        <option value="cripto">Criptomoedas</option>
+                        <option value="commodities">Commodities/Ouro</option>
+                        <option value="cofrinhos">Cofrinhos/Objetivos</option>
+                    </select>
+                    <input type="number" id="inv-quantidade" placeholder="Quantidade" step="0.0001" min="0">
+                    <input type="number" id="inv-preco-medio" placeholder="Preço médio (R$)" step="0.01" min="0">
+                    <input type="number" id="inv-valor-atual" placeholder="Valor atual (R$)" step="0.01" min="0" required>
+                    <input type="text" id="inv-ticker" placeholder="Ticker (PETR4)" style="display:none">
+                    <button type="button" id="btn-cotacao" style="display:none">Atualizar cotação</button>
+                    <input type="number" id="inv-aporte-mensal" placeholder="Aporte mensal (R$)" step="0.01" min="0">
+                    <button type="submit">Adicionar</button>
+                </div>
+            </form>
+            <div id="lista-investimentos" class="lista"></div>
+        </section>
+
+        <section id="graficos" class="section">
+            <h2>Gráficos</h2>
+            <div class="graficos-grid">
+                <div class="grafico-card">
+                    <h3>Gastos por categoria</h3>
+                    <canvas id="chart-gastos-pizza"></canvas>
+                </div>
+                <div class="grafico-card">
+                    <h3>Gastos mensais</h3>
+                    <canvas id="chart-gastos-barras"></canvas>
+                </div>
+                <div class="grafico-card">
+                    <h3>Investimentos por classe</h3>
+                    <canvas id="chart-investimentos-pizza"></canvas>
+                </div>
+                <div class="grafico-card">
+                    <h3>Aportes mensais</h3>
+                    <canvas id="chart-investimentos-barras"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="metas" class="section">
+            <h2>Metas e Projeções</h2>
+            <div class="form-row">
+                <label>Aporte mensal alvo (R$):</label>
+                <input type="number" id="meta-aporte" step="0.01" min="0">
+                <label>Taxa de retorno (% a.a.):</label>
+                <input type="number" id="meta-taxa" step="0.01" min="0" value="10">
+                <button type="button" id="btn-projetar">Projetar</button>
+            </div>
+            <div id="resultado-projecao" class="resultado"></div>
+            <canvas id="chart-projecao" height="200"></canvas>
+            <div class="alocacao-sugerida">
+                <h3>Alocação sugerida (%)</h3>
+                <div id="alocacao-inputs" class="form-grid"></div>
+            </div>
+        </section>
+
+        <section id="config" class="section">
+            <h2>Configurações</h2>
+            <div class="form-group">
+                <label>Chave API brapi.dev (para cotações):</label>
+                <input type="password" id="config-api-key" placeholder="Sua chave">
+                <button type="button" id="btn-salvar-config">Salvar</button>
+            </div>
+            <div class="form-row">
+                <button type="button" id="btn-exportar">Exportar JSON</button>
+                <input type="file" id="input-importar" accept=".json" style="display:none">
+                <button type="button" id="btn-importar">Importar JSON</button>
+                <button type="button" id="btn-carregar-inicial">Carregar dados iniciais</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/financiamento.js"></script>
+    <script src="js/projecoes.js"></script>
+    <script src="js/api-cotacoes.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
