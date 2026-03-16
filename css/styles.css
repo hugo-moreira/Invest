@@ -212,6 +212,133 @@ button:hover {
     background: var(--danger);
 }
 
+.grupo-gastos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.grupo-gastos h3 {
+    margin: 0.5rem 0;
+}
+
+.grupo-gastos-vazio {
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+}
+
+.gasto-item {
+    align-items: flex-start;
+}
+
+.gasto-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.gasto-detalhes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.gasto-tag {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.muted-text {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.gastos-carousel-card {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.gastos-carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.gastos-carousel-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.gastos-mes-atual {
+    min-width: 7.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.gastos-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.gastos-kpi {
+    padding: 0.9rem 1rem;
+    border-radius: var(--radius);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+}
+
+.gastos-kpi-label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-bottom: 0.35rem;
+}
+
+.gastos-kpi-valor {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.gastos-kpi-variacao {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.gastos-kpi-variacao.sucesso {
+    color: var(--success);
+}
+
+.gastos-kpi-variacao.alerta {
+    color: var(--danger);
+}
+
+.gastos-carousel-graficos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
 .graficos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -246,6 +373,122 @@ button:hover {
     margin-top: 1.5rem;
 }
 
+.consultoria-card {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.consultoria-card.destaque {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+}
+
+.consultoria-valor {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.diagnostico-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.diagnostico-item:first-of-type {
+    border-top: none;
+}
+
+.diagnostico-item p {
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.diagnostico-acao {
+    min-width: 140px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-success {
+    background: rgba(63, 185, 80, 0.18);
+    color: #7ee787;
+}
+
+.badge-warning {
+    background: rgba(210, 153, 34, 0.18);
+    color: #f2cc60;
+}
+
+.badge-danger {
+    background: rgba(248, 81, 73, 0.18);
+    color: #ff938c;
+}
+
+.badge-muted {
+    background: rgba(139, 148, 158, 0.18);
+    color: var(--text-secondary);
+}
+
+.trilha-grid,
+.checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.etapa-trilha,
+.check-item {
+    padding: 0.875rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.form-group-checkbox {
+    justify-content: flex-end;
+}
+
+.form-group-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+}
+
+.analise-lista {
+    margin: 0.75rem 0 0 1.25rem;
+    color: var(--text-secondary);
+}
+
+.analise-resumo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.resultado h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
 @media (max-width: 768px) {
     .nav {
         flex-direction: column;
@@ -262,5 +505,14 @@ button:hover {
 
     .resumo-grid {
         grid-template-columns: 1fr;
+    }
+
+    .diagnostico-item {
+        flex-direction: column;
+    }
+
+    .diagnostico-acao {
+        text-align: left;
+        min-width: auto;
     }
 }

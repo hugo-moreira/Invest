@@ -10,6 +10,8 @@ let chartGastosPizza = null;
 let chartGastosBarras = null;
 let chartInvestimentosPizza = null;
 let chartInvestimentosBarras = null;
+let chartGastosMensalDetalhe = null;
+let chartGastosMensalEvolucao = null;
 
 function atualizarGraficos() {
     atualizarGraficoGastosPizza();
@@ -22,7 +24,7 @@ function atualizarGraficoGastosPizza() {
     const ctx = document.getElementById('chart-gastos-pizza');
     if (!ctx) return;
 
-    const gastos = getGastos();
+    const gastos = getGastos().filter((g) => !g.apenasVisibilidade);
     const fin = getFinanciamento();
     const cartoes = getCartoes();
 
@@ -71,7 +73,7 @@ function atualizarGraficoGastosBarras() {
     if (!ctx) return;
 
     const gastosMensais = getGastosMensais();
-    const gastos = getGastos();
+    const gastos = getGastos().filter((g) => !g.apenasVisibilidade);
     const fin = getFinanciamento();
     const cartoes = getCartoes();
 
@@ -196,6 +198,103 @@ function atualizarGraficoInvestimentosBarras() {
                     beginAtZero: true,
                     ticks: {
                         callback: v => 'R$ ' + (v/1000).toFixed(0) + 'k'
+                    }
+                }
+            }
+        }
+    });
+}
+
+function formatarMoedaCompacta(valor) {
+    return 'R$ ' + (parseFloat(valor) || 0).toLocaleString('pt-BR', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+}
+
+function atualizarGraficoCarrosselGastos(meses, indiceSelecionado) {
+    atualizarGraficoDetalheMesGastos(meses, indiceSelecionado);
+    atualizarGraficoLinhaEvolucaoGastos(meses, indiceSelecionado);
+}
+
+function atualizarGraficoDetalheMesGastos(meses, indiceSelecionado) {
+    const ctx = document.getElementById('chart-gastos-mensal-detalhe');
+    if (!ctx || !meses || !meses.length) return;
+
+    const mes = meses[indiceSelecionado];
+    const categorias = Object.entries(mes.categorias || {}).filter(([, valor]) => valor > 0);
+    const labels = categorias.length ? categorias.map(([label]) => label) : ['Sem dados'];
+    const valores = categorias.length ? categorias.map(([, valor]) => valor) : [1];
+
+    if (chartGastosMensalDetalhe) chartGastosMensalDetalhe.destroy();
+
+    chartGastosMensalDetalhe = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels,
+            datasets: [{
+                data: valores,
+                backgroundColor: CORES.concat(CORES).slice(0, labels.length),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => `${context.label}: ${formatarMoedaCompacta(context.raw)}`
+                    }
+                }
+            }
+        }
+    });
+}
+
+function atualizarGraficoLinhaEvolucaoGastos(meses, indiceSelecionado) {
+    const ctx = document.getElementById('chart-gastos-mensal-evolucao');
+    if (!ctx || !meses || !meses.length) return;
+
+    const labels = meses.map((mes) => mes.label);
+    const valores = meses.map((mes) => mes.total);
+    const coresPontos = meses.map((_, indice) => indice === indiceSelecionado ? '#f85149' : '#58a6ff');
+    const tamanhosPontos = meses.map((_, indice) => indice === indiceSelecionado ? 6 : 4);
+
+    if (chartGastosMensalEvolucao) chartGastosMensalEvolucao.destroy();
+
+    chartGastosMensalEvolucao = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Total por mês',
+                data: valores,
+                borderColor: '#58a6ff',
+                backgroundColor: 'rgba(88, 166, 255, 0.18)',
+                tension: 0.25,
+                fill: true,
+                pointBackgroundColor: coresPontos,
+                pointBorderColor: coresPontos,
+                pointRadius: tamanhosPontos,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => formatarMoedaCompacta(context.raw)
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: (valor) => formatarMoedaCompacta(valor)
                     }
                 }
             }
